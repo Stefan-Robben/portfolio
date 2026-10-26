@@ -1,0 +1,20 @@
+[
+  {"query": "we run like 8 orthodontist sites off one bedrock repo and honestly the composer + satis setup is more trouble than it's worth. can you migrate this to plain wordpress so we just upload plugins normally?", "should_trigger": true},
+  {"query": "this salient child theme still boots the webreactor framework and renders the WPBakery elements through blade. rip the framework out and make the elements native php with vc_map", "should_trigger": true},
+  {"query": "swap laravel mix for parcel in the theme and get rid of tailwind — i want the styles as plain hand-written css", "should_trigger": true},
+  {"query": "make our theme repo track only the theme dir, everything else (core, plugins, salient parent) is provisioned per-site now", "should_trigger": true},
+  {"query": "the boilerplate-theme build pulls @webreact/webreactor and a bunch of tailwind plugins, can we drop all the webreact packages and simplify the build", "should_trigger": true},
+  {"query": "get this off bedrock — native wp-config per site, no more roots/wordpress in composer, we'll handle the premium plugins ourselves", "should_trigger": true},
+  {"query": "convert the .blade.php files in wp-content/themes to normal php templates loaded with include", "should_trigger": true},
+  {"query": "drop sass entirely from the theme, plain css only, and bundle it with parcel instead of webpack mix", "should_trigger": true},
+  {"query": "our wordpress theme depends on a private satis repo for its framework — i want it fully standalone with no private composer repos", "should_trigger": true},
+  {"query": "set up parcel to bundle my react + typescript SPA in /apps/dashboard, it's currently on webpack", "should_trigger": false},
+  {"query": "remove tailwind from my next.js marketing site and move everything to plain css modules", "should_trigger": false},
+  {"query": "i need to migrate this wordpress site from siteground to a new spinupwp server, mostly db + uploads sync", "should_trigger": false},
+  {"query": "convert my laravel blade views to inertia + vue components", "should_trigger": false},
+  {"query": "spin up a fresh roots sage 10 theme with bud and tailwind for a new client", "should_trigger": false},
+  {"query": "can you install and configure ACF Pro + Gravity Forms on this wordpress site", "should_trigger": false},
+  {"query": "bump wordpress core from 6.8 to 6.9 on our bedrock install and update the composer-managed plugins", "should_trigger": false},
+  {"query": "our WPBakery homepage is loading slow, can you defer the css/js and optimize delivery", "should_trigger": false},
+  {"query": "i've got some scss in a plain static html site, compile it to minified css with a simple tool", "should_trigger": false}
+]

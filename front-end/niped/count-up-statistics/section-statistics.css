@@ -1,0 +1,41 @@
+/*
+ * Project: Niped (Radicle / WordPress)
+ * Origineel pad: resources/css/components/section-statistics.css
+ * Wat het doet: Responsive grid: 1 kolom, 2 kolommen vanaf xs, en vanaf md een kolom per item (max 4) via een CSS variabele.
+ */
+
+/* Section statistics */
+/* -------------------------------------------------------------------------------- */
+
+.section-statistics__container {
+  @apply container-wide;
+  @apply grid;
+  /* Stacked on phones, two columns from xs, a single row from md. The row
+     gets one column per item (set inline from the item count, capped at 4)
+     so fewer items still span the container and sit centered. */
+  @apply grid-cols-1 xs:grid-cols-2;
+  @apply md:grid-cols-[repeat(min(var(--section-statistics-items,4),4),minmax(0,1fr))];
+  @apply gap-x-(--gap-base) gap-y-(--gap-lg);
+  @apply text-center;
+}
+
+.section-statistics__item {
+  @apply flex flex-col items-center;
+  @apply gap-xxs;
+}
+
+.section-statistics__value {
+  @apply h1;
+  @apply leading-[1.2];
+}
+
+.section-statistics__label {
+  @apply text-base;
+  @apply text-body;
+}
+
+/* Inside .gutenberg-container rich-content gives this <p> a top and bottom
+   margin on top of the 8px item gap; two classes outweigh its :where(). */
+.section-statistics .section-statistics__label {
+  @apply m-0;
+}

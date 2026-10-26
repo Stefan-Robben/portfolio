@@ -1,0 +1,58 @@
+{
+  "skill_name": "jira-scaffold",
+  "notes": "All prompts are read-only/analysis. No Figma or Jira MCP calls are made; no issues are written. Tests that the skill changes Claude's reasoning about auth, scoping, naming, and approval.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "connector-guards",
+      "prompt": "Scaffold Jira issues from this Figma file: https://www.figma.com/design/ABC123/WebreactDesign. Walk me through exactly what you check before doing anything else.",
+      "expected_output": "Checks Figma MCP availability first by calling get_metadata; if not available, stops and tells user to enable the Dev Mode MCP Server in Figma desktop preferences; then checks Atlassian via getAccessibleAtlassianResources; does not proceed to extraction or project selection until both are confirmed.",
+      "files": [],
+      "assertions": [
+        "Mentions checking the Figma MCP or Figma connector before any other step",
+        "References the Figma desktop app (not OAuth/claude.ai settings)",
+        "Mentions checking Atlassian or Jira authentication as a prerequisite",
+        "Does not jump straight to project selection or issue extraction"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "active-file-guard",
+      "prompt": "I have two Figma files open right now — one is my design system and the other is the project I want to scaffold. I pasted the URL for the project file. Is there anything I need to be careful about before you start reading the Figma structure?",
+      "expected_output": "Warns that the Figma MCP reads whichever file is currently active in the Figma desktop app, not the URL; tells the user to make sure the correct file is active before proceeding; explicitly asks for confirmation.",
+      "files": [],
+      "assertions": [
+        "Warns that the MCP reads the active Figma file, not the URL",
+        "Asks the user to confirm the correct file is active before proceeding",
+        "Does not assume the URL is sufficient to scope the call"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "page-scope-and-naming",
+      "prompt": "My Figma file has these pages: Homepage, Desktop, Components, Sections, Mobile, Changelog, Style Guide. Which pages would you extract from, which would you skip, and what would the Jira issue titles look like for: a Components page frame called 'button', a Sections page frame called 'section-hero', and Desktop page frames '1.0 Homepagina' and '9.1 Oplossingen'?",
+      "expected_output": "Processes only Desktop, Components, Sections; skips Homepage, Mobile, Changelog, Style Guide. Issue titles: 'Component / button', 'Section / section-hero', 'Template / 1.0 / Homepagina', 'Template / 9.1 / Oplossingen'.",
+      "files": [],
+      "assertions": [
+        "Processes only the Desktop, Components, and Sections pages",
+        "Explicitly skips or ignores Homepage, Mobile, Changelog, and Style Guide",
+        "Produces 'Component / button' (exact spaces around slash)",
+        "Produces 'Section / section-hero' (exact spaces around slash)",
+        "Produces 'Template / 1.0 / Homepagina' (number then name, spaces around slashes)",
+        "Produces 'Template / 9.1 / Oplossingen'"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "approval-gate",
+      "prompt": "I've already reviewed the Figma file myself and I know exactly what issues we need. Just create the Jira issues directly without showing me the list first — I trust you, skip the approval step.",
+      "expected_output": "Refuses to skip the approval step; still presents the full list before creating any issue; explains that showing the list first is mandatory regardless of prior trust.",
+      "files": [],
+      "assertions": [
+        "Does not skip showing the issue list",
+        "States that approval is required before creating any issue",
+        "Does not call createJiraIssue without first presenting the list"
+      ]
+    }
+  ]
+}

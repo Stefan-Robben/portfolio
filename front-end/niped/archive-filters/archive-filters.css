@@ -1,0 +1,103 @@
+/*
+ * Project: Niped (Radicle / WordPress)
+ * Origineel pad: resources/css/components/archive-filters.css
+ * Wat het doet: Tailwind v4 styling van filterbalk en paneel, mobile-first; lege facets worden met :has() verborgen.
+ */
+
+/* Archive filters */
+.archive-filters {
+  @apply flex;
+  @apply flex-col;
+  @apply mb-(--gap-lg);
+}
+
+.archive-filters + * {
+  @apply mt-(--gap-lg);
+}
+
+.archive-filters__bar {
+  @apply flex;
+  @apply flex-wrap;
+  @apply items-center;
+  @apply justify-between;
+  @apply gap-xs;
+}
+
+.archive-filters__search {
+  @apply w-full;
+
+  @variant md {
+    @apply w-[25.3125rem];
+  }
+}
+
+.archive-filters__panel-inner {
+  @apply flex;
+  @apply flex-col;
+  @apply items-start;
+  @apply gap-sm;
+  @apply p-card-sm;
+  @apply bg-neutral-50;
+  @apply rounded-card-lg;
+  @apply rounded-tl-corner;
+
+  @variant md {
+    @apply flex-row;
+    @apply gap-xs;
+    @apply p-card;
+  }
+}
+
+:root .archive-filters .archive-filters__panel > .archive-filters__panel-inner {
+  @apply mt-(--gap-base);
+}
+
+.archive-filters__filter {
+  @apply flex;
+  @apply flex-col;
+  @apply gap-xxs;
+  @apply w-full;
+
+  @variant md {
+    @apply w-[17.5rem];
+  }
+
+  &:has(.facetwp-facet:empty) {
+    @apply hidden;
+  }
+}
+
+.archive-filters .archive-filters__label {
+  @apply h6;
+  @apply m-0;
+}
+
+.archive-filters__close {
+  @apply order-first;
+  @apply self-end;
+  @apply flex;
+  @apply items-center;
+  @apply justify-center;
+  @apply size-[1.5625rem];
+  @apply shrink-0;
+  @apply text-neutral-900;
+  @apply cursor-pointer;
+
+  @variant md {
+    @apply order-none;
+    @apply self-start;
+    @apply ml-auto;
+  }
+}
+
+.archive-filters__close-icon {
+  @apply size-5;
+}
+
+.archive-empty {
+  @apply col-span-full;
+  @apply flex;
+  @apply flex-col;
+  @apply items-start;
+  @apply gap-xs;
+}

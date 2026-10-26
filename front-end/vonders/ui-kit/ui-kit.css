@@ -1,0 +1,115 @@
+/*
+ * Project: Vonders (Radicle / WordPress)
+ * Origineel pad: resources/css/components/ui-kit.css
+ * Wat het doet: Styling van de UI-kit pagina met lokale CSS custom properties.
+ */
+
+.uikit {
+  --sections-background: var(--color-zinc-100);
+  --divider-color: var(--color-orange-500);
+  --text-color: var(--color-gray-950);
+  --code-text-color: var(--color-white);
+  --code-background-color: var(--color-gray-700);
+  --color-footer-color: var(--color-white);
+
+  @apply bg-(--sections-background);
+  @apply p-4 lg:p-8;
+  @apply rounded-xl;
+  @apply space-y-8;
+}
+
+.uikit__header {
+  @apply border-0 border-b border-dashed border-(color:--divider-color);
+  @apply pb-6;
+  @apply space-y-2;
+  @apply text-(--text-color);
+}
+
+.uikit__header code {
+  @apply bg-(--code-background-color);
+  @apply text-(--code-text-color);
+  @apply text-sm;
+  @apply p-0.5;
+  @apply rounded;
+}
+
+.uikit__title {
+  @apply h3;
+
+  @apply pb-0 mb-0;
+}
+
+.uikit__content {
+  @apply space-y-10;
+  @apply divide-y divide-dashed divide-(color:--divider-color);
+}
+
+/* Sections */
+.uikit__section {
+  @apply mb-0;
+
+  & + & {
+    @apply pt-10;
+  }
+}
+
+.uikit__section-title {
+  @apply h4;
+}
+
+.uikit__section-header {
+  @apply space-y-2;
+  @apply text-(--text-color);
+}
+
+.uikit__section-description {
+  @apply text-lg;
+}
+
+.uikit__section-content {
+  @apply mb-6;
+}
+
+/* Variants */
+
+.uikit__variants {
+  @apply border border-dashed border-gray-100;
+  @apply rounded-lg;
+  @apply p-4;
+  @apply max-w-max;
+}
+
+/* Colors */
+.uikit__color {
+  @apply rounded-xl;
+  @apply overflow-hidden;
+  @apply shadow-sm;
+}
+
+.uikit__color-bg {
+  @apply bg-[--background];
+  @apply aspect-[4/3];
+}
+
+.uikit__color-footer {
+  @apply bg-(--color-footer-color);
+  @apply flex;
+  @apply flex-col lg:flex-row;
+  @apply justify-between;
+  @apply px-3 p-2 lg:p-4;
+  @apply text-xs lg:text-sm;
+  @apply text-(--text-color);
+}
+
+.uikit__color-footer-value {
+  @apply font-bold;
+}
+
+
+/* Shadows */
+.uikit__shadow {
+  @apply w-full;
+  @apply aspect-square;
+  @apply rounded-xl;
+  @apply flex items-center justify-center;
+}

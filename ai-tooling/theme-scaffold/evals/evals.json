@@ -1,0 +1,74 @@
+{
+  "skill_name": "theme-scaffold",
+  "notes": "All prompts are read/generate-only. Nothing writes to a live Figma file or a real project. The JSON fixtures are inline to keep evals self-contained. Graders check reasoning and output structure, not live Figma API access.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "url-required-when-no-json",
+      "prompt": "/theme-scaffold",
+      "expected_output": "Asks the user to provide a Figma project URL before doing anything else, because no URL and no JSON files were supplied.",
+      "files": [],
+      "assertions": [
+        "Asks for a Figma URL (or link) before proceeding",
+        "Does not generate any output files or CSS variables without input",
+        "Does not call mcp__Figma__get_variable_defs without a URL"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "json-fallback-no-url-needed",
+      "prompt": "Convert these tokens to a theme.\n\ncolors.json:\n```json\n{\"blue\":{\"value\":\"#382279\",\"type\":\"color\"},\"white\":{\"value\":\"#ffffff\",\"type\":\"color\"}}\n```",
+      "expected_output": "Processes the uploaded JSON without asking for a Figma URL. Generates theme.css with --color-blue and --color-white CSS variables, utilities.css with .text-blue, .bg-blue, .text-white, .bg-white classes, and four Blade component files. Shows the file list and waits for approval before writing.",
+      "files": [],
+      "assertions": [
+        "Does NOT ask for a Figma URL when JSON files are provided",
+        "Generates --color-blue: #382279 and --color-white: #ffffff CSS variables",
+        "Generates .text-blue and .bg-blue utility classes referencing var(--color-blue)",
+        "Lists the planned output files and waits for user approval before writing",
+        "Generates separate Blade component files (button, badge, heading, text) not a single ui-kit.blade.php"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "approval-gate",
+      "prompt": "/theme-scaffold https://figma.com/design/ABC123/MyProject?node-id=1-2\n\nHere are the tokens from the file:\n\ncolors.json:\n```json\n{\"brand\":{\"value\":\"#6200EE\",\"type\":\"color\"}}\n```",
+      "expected_output": "After reading the tokens, shows a list of files that will be written and waits for explicit user confirmation before generating anything.",
+      "files": [],
+      "assertions": [
+        "Lists the planned output files (theme.css, utilities.css, and blade component files) before writing",
+        "Explicitly waits for user approval / confirmation before generating the files",
+        "Does not write any file before approval is given"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "typography-hierarchy-exact-algorithm",
+      "prompt": "Convert this typography token set to a theme. Only these four sizes exist.\n\ntypography.json:\n```json\n{\n  \"sm\":   {\"value\":\"14\",\"type\":\"fontSizes\"},\n  \"base\": {\"value\":\"16\",\"type\":\"fontSizes\"},\n  \"2xl\":  {\"value\":\"24\",\"type\":\"fontSizes\"},\n  \"5xl\":  {\"value\":\"48\",\"type\":\"fontSizes\"}\n}\n```",
+      "expected_output": "Converts sizes to rem (sm=0.875rem, base=1rem, 2xl=1.5rem, 5xl=3rem). Sorts descending: 5xl, 2xl, base, sm. Maps h1→5xl, h2→2xl, h3→base, h4→sm, h5→sm (reused), h6→sm (reused). Maps body→base (closest to 1rem), small→sm (one step below base), xs→sm (smallest).",
+      "files": [],
+      "assertions": [
+        "Converts 14px→0.875rem, 16px→1rem, 24px→1.5rem, 48px→3rem",
+        "Maps --h1 to var(--font-size-5xl) (largest)",
+        "Maps --h2 to var(--font-size-2xl)",
+        "Maps --h4 through --h6 to var(--font-size-sm) (reused — only 4 sizes available)",
+        "Maps --body to var(--font-size-base) (closest to 1rem)",
+        "Maps --small and --xs to var(--font-size-sm) (smallest available)"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "separate-blade-component-files",
+      "prompt": "Generate a Blade UI kit from these tokens.\n\ncolors.json:\n```json\n{\"primary\":{\"value\":\"#382279\",\"type\":\"color\"},\"white\":{\"value\":\"#ffffff\",\"type\":\"color\"}}\n```",
+      "expected_output": "Generates four separate Blade files — resources/views/components/button.blade.php, badge.blade.php, heading.blade.php, text.blade.php — each with a single @props declaration. Does not generate a single ui-kit.blade.php containing multiple @props blocks.",
+      "files": [],
+      "assertions": [
+        "Generates resources/views/components/button.blade.php as a separate file",
+        "Generates resources/views/components/badge.blade.php as a separate file",
+        "Generates resources/views/components/heading.blade.php as a separate file",
+        "Generates resources/views/components/text.blade.php as a separate file",
+        "Each file contains exactly one @props declaration",
+        "Does not generate a single combined ui-kit.blade.php with multiple @props blocks"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+/*
+ * Project: Niped (Radicle / WordPress)
+ * Origineel pad: resources/css/components/chart.css
+ * Wat het doet: Tailwind v4 styling van de grafiekkaart; vaste aspect-ratio zodat er geen layout shift is als Chart.js tekent.
+ */
+
+/* Chart */
+/* -------------------------------------------------------------------------------- */
+
+/* The same card as the benchmark block, so the two sit together in an article. */
+.chart {
+  @apply flex;
+  @apply flex-col;
+  @apply items-start;
+  @apply gap-(--gap-sm);
+  @apply p-card;
+  @apply border border-neutral-400;
+  @apply rounded-card-lg;
+}
+
+.chart__header {
+  @apply flex;
+  @apply flex-col;
+  @apply gap-(--gap-xxs);
+}
+
+/* Two classes: inside .gutenberg-container rich-content's `:where()` margins
+   on headings and paragraphs tie with one class and come later. */
+.chart .chart__title {
+  @apply h3;
+  @apply m-0;
+}
+
+.chart .chart__intro {
+  @apply m-0;
+  @apply text-sm;
+  @apply font-semibold;
+  @apply text-body;
+}
+
+/* A fixed shape, so nothing moves when Chart.js draws into it later. */
+.chart__canvas {
+  @apply relative;
+  @apply w-full;
+  @apply aspect-[4/3] md:aspect-video;
+}
+
+.chart--pie .chart__canvas,
+.chart--doughnut .chart__canvas {
+  @apply aspect-square;
+  @apply max-w-[24rem];
+  @apply mx-auto;
+}
