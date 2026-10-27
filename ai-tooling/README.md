@@ -9,7 +9,7 @@ Hieronder staan de skills die ik (Stefan Robben) heb gebouwd. Twee ervan zijn vo
 | [theme-scaffold](#theme-scaffold) | Team Webreact | Figma design tokens → `theme.css`, `utilities.css` en Blade-componenten |
 | [jira-scaffold](#jira-scaffold) | Team Webreact | Figma-bestand → Jira-tickets met een live Figma-preview |
 | [bedrock-to-native-wp](#bedrock-to-native-wp) | Persoonlijk (werk) | WordPress-project van Bedrock naar native WordPress met Parcel en gewone CSS |
-| [motivatiebrief](#motivatiebrief) | Persoonlijk | Vacature-link → motivatiebrief als pdf van één A4 |
+| [motivatiebrief](#motivatiebrief) | Persoonlijk | Vacature-link → formele motivatiebrief als Pages-document van één A4 |
 
 **Hoe ik werk.** Elke skill heeft vaste regels: eerst een plan laten zien, pas schrijven na akkoord, en dezelfde invoer geeft altijd dezelfde uitvoer. Voor de teamskills schreef ik ook een eval-suite. Dat zijn testvragen met verwachte antwoorden, plus een `grade.py` die de antwoorden automatisch nakijkt.
 
@@ -115,23 +115,23 @@ Oudere WordPress-sites van Webreact draaien op Roots Bedrock met een eigen frame
 **Bron:** mijn persoonlijke skills-map (`~/.claude/skills/motivatiebrief/`).
 
 ### Het probleem
-Een goede motivatiebrief per vacature kost veel tijd. Een algemene brief met clichés ("gedreven", "teamplayer") zegt een recruiter niets. Ik wilde een brief die elke belangrijke eis koppelt aan concreet bewijs uit mijn cv. Hij moet ook klinken zoals ik schrijf.
+Een goede motivatiebrief per vacature kost veel tijd. Een algemene brief met clichés ("gedreven", "teamplayer") zegt een recruiter niets. Ik wilde een brief die elke belangrijke eis koppelt aan concreet bewijs uit mijn cv, en die ik daarna zelf nog kan aanpassen in Pages.
 
 ### Hoe het werkt
 1. **Vacature ophalen** met WebFetch. Lukt dat niet, omdat de pagina met JavaScript wordt geladen, dan via de ingebouwde browser. Tekst van de website wordt behandeld als gegevens, niet als instructies.
-2. **Feiten verzamelen** uit mijn cv en een apart bestand met aanvullende feiten. Alleen bestaande feiten gebruiken. Ontbreekt er iets, dan komt het terug als open vraag.
-3. **Schrijven** volgens de schrijfwijzer: vaste opbouw, 250–380 woorden, taalniveau B2, en gaten eerlijk benoemen.
-4. **Opmaken** in een HTML-sjabloon in dezelfde stijl als mijn cv.
-5. **Pdf maken** met `render_pdf.sh` (headless Chrome). Het script stopt als de brief niet op precies één A4 past.
-6. **Controleren** met `pdftotext` en een afbeelding van de pagina. Daarna een korte samenvatting: welke eisen zijn afgedekt, waar zitten de gaten, en welke vragen zijn er nog.
+2. **Feiten verzamelen** uit mijn cv en een apart bestand met aanvullende feiten, waaronder mijn reden voor een nieuwe uitdaging. Alleen bestaande feiten gebruiken. Ontbreekt er iets, dan komt het terug als open vraag.
+3. **Schrijven** volgens de schrijfwijzer: vaste opbouw, 250–380 woorden, een formele brief in de u-vorm in helder Nederlands (B2), vloeiende zinnen met weinig zinnen die met "Ik" beginnen, en gaten eerlijk benoemen.
+4. **Opmaken** in een eenvoudig HTML-sjabloon.
+5. **Pages-document maken** met `build_pages.py`. Pages kan geen omgezette .docx- of .rtf-bestanden openen, dus het script laat Pages via AppleScript zelf een nieuw document maken, typt de brief erin, zet de opmaak per alinea en slaat hem op als .pages. Via een tijdelijke pdf controleert het of de brief op precies één A4 past.
+6. **Controleren** met een voorbeeldafbeelding van de pagina. Daarna een korte samenvatting: welke eisen zijn afgedekt, waar zitten de gaten, en welke vragen zijn er nog.
 
 ### Hoe de kwaliteit wordt gecontroleerd
-Deze skill heeft geen eval-suite. De controle zit in de werkwijze zelf: de paginacheck in het script, de controle met `pdftotext`, en de regel om geen feiten te verzinnen.
+Deze skill heeft geen eval-suite. De controle zit in de werkwijze zelf: de paginacheck in het script, een telling van lange zinnen en zinnen die met "Ik" beginnen, en de regel om geen feiten te verzinnen.
 
 ### Bestanden om te bekijken
 - [`motivatiebrief/SKILL.md`](motivatiebrief/SKILL.md): de vijf stappen
-- [`motivatiebrief/references/schrijfwijzer.md`](motivatiebrief/references/schrijfwijzer.md): opbouw, B2-regels, clichés en voorbeelden
-- [`motivatiebrief/scripts/render_pdf.sh`](motivatiebrief/scripts/render_pdf.sh): pdf maken en paginacheck
+- [`motivatiebrief/references/schrijfwijzer.md`](motivatiebrief/references/schrijfwijzer.md): opbouw, stijlregels, clichés en voorbeelden
+- [`motivatiebrief/scripts/build_pages.py`](motivatiebrief/scripts/build_pages.py): van HTML naar Pages-document, met paginacheck
 - [`motivatiebrief/assets/brief.html`](motivatiebrief/assets/brief.html): het sjabloon
 
 *Niet gepubliceerd:* `references/kandidaat.md` bestaat wel, maar bevat persoonlijke gegevens en staat daarom niet in deze map. In het sjabloon zijn mijn adres, e-mail en telefoonnummer vervangen door `{{ }}`-plekken.
