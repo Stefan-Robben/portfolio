@@ -48,7 +48,7 @@ Controleer na het schrijven elke zin: is hij langer dan 22 woorden, of staat er 
 
 ## Gaten eerlijk benoemen — voorbeelden
 
-- Hbo vereist, Stefan heeft mbo 4: "Ik heb de mbo-opleiding Applicatie- en mediaontwikkelaar afgerond. Daarna heb ik een jaar HBO-ICT gevolgd aan de Hogeschool van Amsterdam. Mijn niveau laat ik vooral zien in mijn werk: als lead developer maak ik zelf de technische keuzes."
+- Hbo vereist, Stefan heeft mbo 4: "Ik heb de mbo-opleiding Applicatie- en mediaontwikkelaar afgerond. Mijn niveau laat ik vooral zien in mijn werk: als lead developer maak ik zelf de technische keuzes." Noem alleen de mbo-opleiding; andere (niet-afgeronde) opleidingen horen niet in de brief.
 - React/Vue gevraagd, Stefan werkt vooral met Blade, Alpine.js en TypeScript: "Ik werk dagelijks met TypeScript en Alpine.js. Met React heb ik gewerkt bij Beyonddutch en met Vue.js tijdens mijn stage. Die kennis wil ik verder uitbreiden."
 
 Claim nooit meer ervaring dan het cv laat zien.
